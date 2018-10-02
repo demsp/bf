@@ -10,7 +10,7 @@ begin
  prev:
  if i>length(str_arr) then goto next; 
     if (str_arr[i]='+') then data_arr[j]:= data_arr[j]+1;
-    if (str_arr[i]='-') then data_arr[j]:= data_arr[j]+1;
+    if (str_arr[i]='-') then data_arr[j]:= data_arr[j]-1;
     if (str_arr[i]='>') then j:=j+1;
     if (str_arr[i]='<') then j:=j-1;
     if (str_arr[i]='.') then write(chr(data_arr[j])); 
