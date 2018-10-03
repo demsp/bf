@@ -12,7 +12,6 @@ prev:
  mov BL, j           ; загружаем в BL индекс данных
  inc data_arr[BX]    ; да, увеличиваем  значение в ячейке на 1
 next: 
- ;;;
  cmp DL, 2Dh         ; ячейка содержит -
  jne next1           ; нет, переходим на метку next1  
  mov BL, j 
@@ -39,8 +38,8 @@ next3:
  mov DL, data_arr[BX]
  cmp DL, 00         ; да, проверяем текущий элемент data_arr на ноль  
  jz next5           ; если ноль, прыгаем дальше
- mov DL, i          ; если не ноль, то загружаем 
- mov i_stor, Dl     ; в i_stor значение переменнной i 
+ mov DL, i          ; иначе загружаем 
+ mov i_stor, Dl     ; в i_stor значение переменной i 
  ;;;
  next5:
  cmp DL, 5Dh       ; ячейка содержит ]
