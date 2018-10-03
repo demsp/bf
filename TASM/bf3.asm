@@ -5,7 +5,7 @@ begin:
   mov AX,data        ; настраиваем сегмент данных                                       
   mov DS,AX             
   mov DL, str_arr    ; загружаем в DL 1ую команду 
-  mov CX, 0Ah        ; 80 тактов
+  mov CX, 0Ah        ; 10 тактов
 prev:                    
  cmp DL, 2Bh         ; ячейка содержит +
  jne next            ; нет, переходим на метку next  
