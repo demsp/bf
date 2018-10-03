@@ -1,5 +1,5 @@
 text segment
-assume cs:text,ds:data
+assume cs:text,ds:data,ss:stk
 begin: 
  ;Подготовим все необходимое
   mov AX,data          ; настраиваем сегмент данных                                       
@@ -21,13 +21,13 @@ prev:
   int 21h 
 text ends
 
-data segment           ; объявляем сегмент данных
+data segment           
 str_arr DB  2Bh,2Bh,2Bh,'$' ; инструкции "+++"
 data_arr DB 1,1,1,1,1,1,1,1,1,1,'$' ; данные
 i DB 0                  ;индекс элемента массива команд 
 data ends
 
-stk segment stack      ; объявляем сегмент стека
+stk segment stack      
  db 256 dup (0)        ; помещаем нули в стек
 stk ends
 end begin      
