@@ -78,6 +78,6 @@ data segment
 data ends
 
 stk segment para stack  
- db 100h dup (?)        ; резервируем 256 ячеек
+ db 100h dup (0)        
 stk ends
 end begin      
