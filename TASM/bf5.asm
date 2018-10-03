@@ -1,5 +1,5 @@
 text segment
-assume cs:text,ds:data, ss: stk
+assume cs:text,ds:data, ss:stk
 begin:  
  ;Подготовим все необходимое
   mov AX,data        ; настраиваем сегмент данных                                       
