@@ -46,9 +46,10 @@ next5:
  mov BL, j
  mov DL, data_arr[BX]
  cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
- jz next5            ; если ноль, прыгаем дальше
+ jz next6            ; если ноль, прыгаем дальше
  mov DL, i_stor      ; иначе загружаем 
  mov i, Dl           ; в i_stor значение переменной i 
+ ;jmp prev
 next6:
  inc i               ; переходим к следующей команде
  mov BL, i
@@ -60,7 +61,11 @@ next6:
 text ends
 
 data segment           
- str_arr DB  2Bh,2Bh,2Bh,2Bh,5Bh, 3Eh,2Bh,3Ch,2Dh ,5Dh, '$'   ; код ++++[>+<-]
+ ;str_arr DB  2Bh,2Bh,2Bh,5Bh, 3Eh,3Eh,2Bh,3Ch,3Ch,2Dh ,5Dh,3Eh,2Bh, '$'   ; код +++[>+<-]>+
+ ;str_arr DB  2Bh,2Bh,2Bh, '$'   ; код +++
+ str_arr DB  2Bh,2Bh,2Bh,5Bh, 3Eh,2Bh,3Ch,2Dh ,5Dh, '$'   ; код +++[>+<-]
+ ;str_arr DB  2Bh,5Bh, 2Dh,  5Dh,3Eh,2Bh, '$'   ; код +[>-<]>+
+ 
  data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'  ; данные
  i DB 0,'$'                              ;индекс элемента массива команд 
  j DB 0,'$'                            ;индекс элемента массива данных
