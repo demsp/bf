@@ -55,7 +55,8 @@ next5:
  jz next6            ; если ноль, прыгаем дальше
  mov DL, i_stor      ; иначе загружаем 
  mov i, Dl           ; в i_stor значение переменной i 
-next6:
+ ; здесь должен быть переход на метку prev:
+ next6:
  inc i               ; переходим к следующей команде
  mov BL, i
  mov DL, str_arr[BX]   
