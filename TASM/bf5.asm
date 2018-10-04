@@ -6,12 +6,12 @@ begin:
   mov DS,AX
   ;;;
   mov ah, 3fh        ; функция ввода
-  mov cx, 100h	     ; 256 символов
+  mov cx, 10h	       ; 16 символов
   mov dx,OFFSET str_arr
   int 21h
   ;;;             
   mov DL, str_arr    ; загружаем в DL 1ую команду 
-  mov CX, 900h        ; 2304 тактов
+  mov CX, 100h        ; 256 тактов
 prev:                    
  cmp DL, 2Bh         ; ячейка содержит +
  jne next            ; нет, переходим на метку next  
@@ -55,7 +55,7 @@ next5:
  jz next6            ; если ноль, прыгаем дальше
  mov DL, i_stor      ; иначе загружаем 
  mov i, Dl           ; в i_stor значение переменной i 
- ; здесь должен быть переход на метку prev:
+ 
  next6:
  inc i               ; переходим к следующей команде
  mov BL, i
