@@ -52,7 +52,7 @@ next5:
  mov BL, j
  mov DL, data_arr[BX]
  cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
- jz next5            ; если ноль, прыгаем дальше
+ jz next6            ; если ноль, прыгаем дальше
  mov DL, i_stor      ; иначе загружаем 
  mov i, Dl           ; в i_stor значение переменной i 
 next6:
