@@ -1,5 +1,5 @@
-jumps                              ; bf5_jumps.asm
-text segment                     
+;jumps
+text segment                    
 assume cs:text,ds:data, ss: stk
 begin:  
  ;Подготовим все необходимое
@@ -15,7 +15,11 @@ begin:
   ;mov CX, 100h        ; 256 тактов
 prev:
  cmp DL, 24h ; символ '$'
- je  exit_loop                   
+ ;je  exit_loop
+ jne l1
+ jmp exit_loop
+ l1:
+                   
  cmp DL, 2Bh         ; ячейка содержит +
  jne next            ; нет, переходим на метку next  
  mov BL, j           ; загружаем в BL индекс данных
@@ -85,4 +89,4 @@ data ends
 stk segment para stack 
  db 100h dup (0)       ; резервируем 256 ячеек
 stk ends
-end begin       
+end begin 
