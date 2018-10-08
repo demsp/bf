@@ -1,46 +1,58 @@
 type
   //Указатель на элемент стека.
-  TPElem = ^TElem;
-  //Элемент стека.
-  TElem = record
+  PointoElem =^Stack_elem;
+  //Элемент стека - это запись.
+  Stack_elem = record
     Data : Integer;
-    PNext : TPElem;
+    PNext : PointoElem;
   end;
- 
 //Добавление элемента на вершину стека.
-procedure StackPush(var aPStack, aPElem : TPElem);
+procedure StackPush(var innerStack, innerElem : PointoElem);
 begin
-  if aPElem = nil then Exit;
-  aPElem^.PNext := aPStack;
-  aPStack := aPElem
+  if innerElem = nil then Exit;
+  innerElem^.PNext := innerStack;
+  innerStack := innerElem
 end;
- 
 //Изъятие элемента с вершины стека.
-function StackPop(var aPStack, aPElem : TPElem) : Boolean;
+function StackPop(var innerStack, innerElem : PointoElem) : Boolean;
 begin
   Result := False;
-  if aPStack = nil then Exit;
-  aPElem := aPStack;
-  aPStack := aPElem^.PNext;
+  if innerStack = nil then Exit;
+  innerElem := innerStack;
+  innerStack := innerElem^.PNext;
   Result := True;
 end;
- 
 //Удаление стека из памяти (очистка стека).
-procedure StackFree(var aPStack : TPElem);
+procedure StackFree(var innerStack : PointoElem);
 var
-  PDel : TPElem;
+  PDel : PointoElem;
 begin
-  while aPStack <> nil do begin
-    PDel := aPStack;
-    aPStack := aPStack^.PNext;
+  while innerStack <> nil do begin
+    PDel := innerStack;
+    innerStack := innerStack^.PNext;
     Dispose(PDel);
   end;
 end;
+{Процедура вывода стека}
+procedure Print(stack1:PointoElem);
+begin
+  if stack1=nil then {проверка на пустоту стека}
+  begin
+    writeln('Стек пуст.');
+    exit;
+  end;
+  while stack1<>nil do {пока указатель stek1 не станет указывать в пустоту}
+  begin   {а это произойдёт как только он перейдёт по ссылке последнего элемента}
+    Write(stack1^.Data, ' '); {выводить данне}
+    stack1:=stack1^.PNext  {и переносить указатель вглубь по стеку}
+  end;
+end;
+
 ///
 LABEL prev,next;
 
 var
-  PSt1, PElem : TPElem;
+  PSt1, PElem : PointoElem;
  data_arr:array[1..10] of integer;    // массив данных
  str_arr: string;                     // команды  
  i,j,k: integer;                      // индексы строки и массива
@@ -51,7 +63,8 @@ begin
  i:=1;
  //readln(str_arr);       //считываем строку
   
- str_arr:='+++[>+++[>+++[>+<-]<-]<-]'; // 3^3=27;
+ //str_arr:='++[>++[>++[>+<-]<-]<-]'; // 3^3=27;
+ str_arr:='+++[>++[>+<-]<-]'; //2*2=4
  PSt1 := nil;
  prev:
  if i>length(str_arr) then goto next; 
@@ -66,15 +79,22 @@ begin
       New(PElem);
       PElem^.Data := i;
       StackPush(PSt1, PElem);
+      write('In [ ');
+      Print(PSt1);
+      writeln();
       if (data_arr[j]>0) then 
        begin
        i := i+1;
        goto prev;
        end;
       end;
+    
     if (str_arr[i]=']') then
       begin
-      StackPop(PSt1, PElem); 
+      StackPop(PSt1, PElem);
+      write('In ] ');
+      Print(PSt1);
+      writeln();
       if (data_arr[j]>0) then 
        begin
         i := PElem^.Data;
