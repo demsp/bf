@@ -6,6 +6,7 @@ begin:
   mov DS,AX
   ;;;
   mov ah, 3fh        ; функция ввода
+  mov bx, 0          ; Дескриптор клавиатуры (можно еще с RS232C или файла)
   mov cx, 10h	       ; 16 символов
   mov dx,OFFSET str_arr
   int 21h
