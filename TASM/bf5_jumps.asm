@@ -20,12 +20,12 @@ prev:
  jmp exit_loop
  l1:
                    
- cmp DL, 2Bh         ; ячейка содержит +
+ cmp DL, 2Bh         ; ячейка содержит +                        ; 3bytes
  jne next            ; нет, переходим на метку next  
- mov BL, j           ; загружаем в BL индекс данных
- inc data_arr[BX]    ; да, увеличиваем  значение в ячейке на 1
+ mov BL, j           ; загружаем в BL индекс данных             ; 2bytes
+ inc data_arr[BX]    ; да, увеличиваем  значение в ячейке на 1  ; 1byte
 next: 
- cmp DL, 2Dh         ; ячейка содержит -
+ cmp DL, 2Dh         ; ячейка содержит -                        ; 3bytes      
  jne next1           ; нет, переходим на метку next1  
  mov BL, j 
  dec data_arr[BX]    ;BX, но не Bl 
