@@ -47,25 +47,22 @@ begin
     stack1:=stack1^.PNext  {и переносить указатель вглубь по стеку}
   end;
 end;
-
-///
+{--------------------------------------------------}
 LABEL prev,next;
-
 var
-  PSt1, PElem : PointoElem;
+ newStack, newElem: PointoElem;
  data_arr:array[1..10] of integer;    // массив данных
  str_arr: string;                     // команды  
  i,j,k: integer;                      // индексы строки и массива
  i_stor: integer; 
-
+{---------------------------------------------------}
 begin
- j:=1;                  // нумерация элементов массива начинается с единицы
+ j:=1;   // нумерация элементов массива начинается с единицы
  i:=1;
  //readln(str_arr);       //считываем строку
-  
  //str_arr:='++[>++[>++[>+<-]<-]<-]'; // 3^3=27;
- str_arr:='+++[>++[>+<-]<-]'; //2*2=4
- PSt1 := nil;
+ str_arr:='++++[>+++[>+<-]<-]'; //2*2=4
+ newStack := nil;
  prev:
  if i>length(str_arr) then goto next; 
     if (str_arr[i]='+') then data_arr[j]:= data_arr[j]+1;
@@ -76,11 +73,11 @@ begin
     // скобки
     if (str_arr[i]='[') then 
       begin
-      New(PElem);
-      PElem^.Data := i;
-      StackPush(PSt1, PElem);
+      New(newElem);
+      newElem^.Data := i;
+      StackPush(newStack, newElem);
       write('In [ ');
-      Print(PSt1);
+      Print(newStack);
       writeln();
       if (data_arr[j]>0) then 
        begin
@@ -91,18 +88,17 @@ begin
     
     if (str_arr[i]=']') then
       begin
-      StackPop(PSt1, PElem);
+      StackPop(newStack, newElem);
       write('In ] ');
-      Print(PSt1);
+      Print(newStack);
       writeln();
       if (data_arr[j]>0) then 
        begin
-        i := PElem^.Data;
+        i := newElem^.Data;
         //i := i+1;
         goto prev;
        end;
       end;
-     
  i:=i+1;
  goto prev;
  next:
