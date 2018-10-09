@@ -3,29 +3,29 @@ text segment
 assume cs:text,ds:data, ss: stk
 begin:  
  ;Подготовим все необходимое
-  mov AX,data        ; настраиваем сегмент данных                                       
+  mov AX,data          ; настраиваем сегмент данных                                       
   mov DS,AX
   ;;;
-  mov ah, 3fh        ; функция ввода
-  mov cx, 100h	     ; 256 символов
+  mov ah, 3fh          ; функция ввода
+  mov cx, 100h	        ; 256 символов
   mov dx,OFFSET str_arr
   int 21h
   ;;;             
-  mov DL, str_arr    ; загружаем в DL 1ую команду 
+  mov DL, str_arr      ; загружаем в DL 1ую команду 
   ;mov CX, 100h        ; 256 тактов
 prev:
  cmp DL, 24h ; символ '$'
  ;je  exit_loop
  jne l1
- jmp SHORT exit_loop ; SHORT можно убрать
+ jmp exit_loop 
  l1:
                    
- cmp DL, 2Bh         ; ячейка содержит +                        ; 3bytes
+ cmp DL, 2Bh         ; ячейка содержит +                        
  jne next            ; нет, переходим на метку next  
- mov BL, j           ; загружаем в BL индекс данных             ; 2bytes
- inc data_arr[BX]    ; да, увеличиваем  значение в ячейке на 1  ; 1byte
+ mov BL, j           ; загружаем в BL индекс данных             
+ inc data_arr[BX]    ; да, увеличиваем  значение в ячейке на 1  
 next: 
- cmp DL, 2Dh         ; ячейка содержит -                        ; 3bytes      
+ cmp DL, 2Dh         ; ячейка содержит -                        
  jne next1           ; нет, переходим на метку next1  
  mov BL, j 
  dec data_arr[BX]    ;BX, но не Bl 
