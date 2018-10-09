@@ -17,7 +17,7 @@ prev:
  cmp DL, 24h ; символ '$'
  ;je  exit_loop
  jne l1
- jmp exit_loop
+ jmp SHORT exit_loop ; SHORT можно убрать
  l1:
                    
  cmp DL, 2Bh         ; ячейка содержит +                        ; 3bytes
