@@ -52,8 +52,8 @@ next4:
  cmp DL, 5Bh         ; ячейка содержит [
  jne next5           ; нет, переходим на метку next5
  ;sub DX,DX
- mov DL, i           ; иначе загружаем
- push DX 
+ mov AL, i           ; иначе загружаем
+ push AX 
 next5:
  cmp DL, 5Dh         ; ячейка содержит ]
  jne next6           ; нет, переходим на метку next6
@@ -63,7 +63,7 @@ next5:
  mov DL, data_arr[BX]
  cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
  jz next6            ; если ноль, прыгаем дальше
- mov i, AL ; DL           ; в i_stor значение переменной i
+ mov i, AL           ; в i_stor значение переменной i
  mov BL, i
  mov DL, str_arr[BX]   
  jmp prev
@@ -76,66 +76,7 @@ next6:
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;;Выод ascii-символов чисел;;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; mov DL, 00h
-; mov i, DL
-; ;;;;;;;;;;;;;;;;;
-; mov DL, data_arr      ; загружаем в DL 1ую команду 
-; mov CX, 0Ah           ;  10 тактов
-;_prev:                    
-; cmp DL, 00h           ; ячейка содержит 0
-; jne _next0            ; нет, переходим на метку _next  
-; mov BL, i            
-; mov data_arr[BX], 30h ; да, загружаем в BL символ "0"
-;_next0: 
-; cmp DL, 01h         
-; jne _next1             
-; mov BL, i 
-; mov data_arr[BX], 31h     
-;_next1: 
-; cmp DL, 02h         
-; jne _next2             
-; mov BL, i 
-; mov data_arr[BX], 32h               
-;_next2: 
-; cmp DL, 03h         
-; jne _next3             
-; mov BL, i 
-; mov data_arr[BX], 33h
-;_next3: 
-; cmp DL, 04h         
-; jne _next4             
-; mov BL, i 
-; mov data_arr[BX], 34h
-;_next4:
-; cmp DL, 05h         
-; jne _next5           
-; mov BL, i 
-; mov data_arr[BX], 35h 
-;_next5:
-; cmp DL, 06h         
-; jne _next6           
-; mov BL, i 
-; mov data_arr[BX], 36h
-;_next6:
-; cmp DL, 07h         
-; jne _next7           
-; mov BL, i 
-; mov data_arr[BX], 37h
-;_next7:
-; cmp DL, 08h         
-; jne _next8           
-; mov BL, i 
-; mov data_arr[BX], 38h
-;_next8:
-; cmp DL, 09h         
-; jne _next9           
-; mov BL, i 
-; mov data_arr[BX], 39h     
-;_next9:
-; inc i               
-; mov BL, i
-; mov DL, data_arr[BX]   
-; loop _prev          
+
 ;;;;;;;;;;;;;;;
  mov ah,09h
  mov dx,offset data_arr  ; указатель на массив символов
@@ -150,17 +91,3 @@ next6:
  int 21h 
 
 END    start
-;text ends
-
-;data segment           
-;  str_arr DB 256h DUP('$')	; буфер на 256 символов
-; data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'  ; данные
-; i DB 0,'$'                              ;индекс элемента массива команд 
-; j DB 0,'$'                            ;индекс элемента массива данных
-; i_stor DB 0,'$'
-;data ends
-
-;stk segment para stack 
-; db 100h dup (?)       ; резервируем 256 ячеек
-;stk ends
-;end begin 
