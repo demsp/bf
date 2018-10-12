@@ -46,7 +46,7 @@ next4:
  cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
  jz next5            ; если ноль, прыгаем дальше
  mov DL, i           ; иначе загружаем 
- mov i_stor, Dl      ; в i_stor значение переменной i
+ mov i_stor, DL      ; в i_stor значение переменной i
 next5:
  cmp DL, 5Dh         ; ячейка содержит ]
  jne next6           ; нет, переходим на метку next6
