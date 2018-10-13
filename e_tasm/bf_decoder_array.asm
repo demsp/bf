@@ -70,10 +70,9 @@ next6:
  inc i               ; increment index of str_arr
  mov BL, i
  mov DL, str_arr[BX] ; go to next bf-command  
-; loop prev          ; jump to prev:
- jmp prev
+ jmp prev            ; jump to prev:
  exit_loop: 
- ;;;;;;;;;;;;;;;;
+ 
  MOV    AH,2         ; new line
  MOV    DL,0Ah       ; mew line
  INT    21h          ; new line
