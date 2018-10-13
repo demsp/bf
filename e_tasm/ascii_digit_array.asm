@@ -1,16 +1,16 @@
-.model tiny                     ; ascii-decoder
+.model tiny                           ; ascii-decoder
 jumps
 .data
  data_arr DB 3,5,12,0,11,6,23,0,0,0,'$' ; data array
- i DB 0,'$' 
+ i DB 0,'$'                             ; index of counter  
 
 .code
 ORG    100h
 start:
-;Подготовим все необходимое
+
   mov AX, @data               ; set DS
   mov DS,AX
-;;;;;;;;;;;;;;;;
+;;; ;;; ;;;
  MOV    AH,2                  ; new line
  MOV    DL,0Ah                ; new line
  INT    21h                   ; new line
