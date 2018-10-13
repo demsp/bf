@@ -74,7 +74,7 @@ next6:
  exit_loop: 
  
  MOV    AH,2         ; new line
- MOV    DL,0Ah       ; mew line
+ MOV    DL,0Ah       ; new line
  INT    21h          ; new line
 
 ; output data_arr    
