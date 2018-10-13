@@ -1,7 +1,7 @@
 .model tiny            ; it works correctly
 jumps
 .data
- str_arr DB 256h DUP('$')	            ; 256 symbols buffer
+ str_arr DB 256h DUP('$')	           ; 256 symbols buffer
  data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'  ; data 'tape'
  i DB 0,'$'                           ;index of command array's element   
  j DB 0,'$'                           ;index of data array's element 
