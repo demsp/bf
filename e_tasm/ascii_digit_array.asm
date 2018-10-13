@@ -15,7 +15,7 @@ start:
  MOV    DL,0Ah                ; new line
  INT    21h                   ; new line
     
-mov CX, 0Ah                   ; count of cycles
+mov CX, 0Ah                   ; 10 count of cycles
 _prev:
  sub AH, AH                   ; zeroize AH
  mov AL, data_arr[BX]         ; dividend
