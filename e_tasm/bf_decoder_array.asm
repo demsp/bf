@@ -1,28 +1,27 @@
 .model small
 jumps
 .data
- str_arr DB 256h DUP('$')	       ;  256 symbols
+ str_arr DB 256h DUP('$')	              ;  256 symbols
   data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   ;  data array
- ; data_arr DB 2,5,12,0,11,6,23,0,0,0,'$' ;
- i DB 0,'$'                            ; index of string element 
- j DB 0,'$'                            ; index of data element
+ i DB 0,'$'                             ; index of string element 
+ j DB 0,'$'                             ; index of data element
  i_stor DB 0,'$'
 
 .code
 ORG    100h
 start:
 
-  mov AX, @data          ; set DS                                       
+  mov AX, @data       ; set DS                                       
   mov DS,AX
-  ;;;
-  mov ah, 3fh          ; input function of 21h
-  mov cx, 100h	        ; 256 symbols
+  ; ; ;
+  mov ah, 3fh         ; input function of 21h
+  mov cx, 100h	       ; 256 symbols
   mov dx,OFFSET str_arr
   int 21h
-  ;;;             
-  mov DL, str_arr      ; load 1st command to DL 
+  ; ; ;             
+  mov DL, str_arr     ; load 1st command to DL 
 prev:
- cmp DL, 24h           ; symbol '$'
+ cmp DL, 24h          ; symbol '$'
  je  exit_loop
                   
  cmp DL, 2Bh         ; if cell contains +                        
@@ -83,7 +82,7 @@ next6:
 mov CX, 0Ah          ; 10 count of cycles
 sub AL,AL            ; zeroize AL
 mov i, AL            ; load zero to i
-sub BX,BX
+sub BX,BX            ; zeroize BX
 ;problem is here
 _prev:
 ; incorrect 1st element
@@ -103,8 +102,8 @@ _prev:
 sub DL, DL          
 int 21h 
 ;;;
-sub BX,BX
-inc i                ; increment counter of index          
+sub BX,BX           ; zeroize BX
+inc i               ; increment counter of index          
 mov BL, i
 loop _prev
 ;;;;;;;;;;
