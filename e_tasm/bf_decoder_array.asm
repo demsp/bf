@@ -1,8 +1,9 @@
-.model tiny
+.model small
 jumps
 .data
  str_arr DB 256h DUP('$')	       ;  256 symbols
- data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   ;  data array
+  data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   ;  data array
+ ; data_arr DB 2,5,12,0,11,6,23,0,0,0,'$' ;
  i DB 0,'$'                            ; index of string element 
  j DB 0,'$'                            ; index of data element
  i_stor DB 0,'$'
@@ -70,22 +71,25 @@ next6:
  inc i               ; increment index of str_arr
  mov BL, i
  mov DL, str_arr[BX] ; go to next bf-command  
- jmp prev            ; jump to prev:
+; loop prev          ; jump to prev:
+ jmp prev
  exit_loop: 
- 
+ ;;;;;;;;;;;;;;;;
  MOV    AH,2         ; new line
- MOV    DL,0Ah       ; new line
+ MOV    DL,0Ah       ; mew line
  INT    21h          ; new line
 
 ; output data_arr    
 mov CX, 0Ah          ; 10 count of cycles
 sub AL,AL            ; zeroize AL
 mov i, AL            ; load zero to i
+sub BX,BX
+;problem is here
 _prev:
-;output ascii_digit
-
+; incorrect 1st element
  sub AH, AH             ; zeroize AH
  mov AL, data_arr[BX]   ; dividend
+ ;mov AL, data_arr+1 
  mov BL, 10             ; divisor
  div BL                 ; quotient  AL=tens and AH=units 
  mov BX,AX
