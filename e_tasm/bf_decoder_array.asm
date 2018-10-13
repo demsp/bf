@@ -83,7 +83,6 @@ mov CX, 0Ah          ; 10 count of cycles
 sub AL,AL            ; zeroize AL
 mov i, AL            ; load zero to i
 sub BX,BX            ; zeroize BX
-;problem is here
 _prev:
 ; incorrect 1st element
  sub AH, AH             ; zeroize AH
