@@ -3,7 +3,6 @@ jumps
 .data
  str_arr DB 256h DUP('$')	       
   data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   
- ; data_arr DB 2,5,12,0,11,6,23,0,0,0,'$' 
  i DB 0,'$'                           
  j DB 0,'$'                           
  i_stor DB 0,'$'
