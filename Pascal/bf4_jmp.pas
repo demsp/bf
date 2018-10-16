@@ -26,6 +26,7 @@ begin
     if (str_arr[i]='>') then j:=j+1;
     if (str_arr[i]='<') then j:=j-1;
     if (str_arr[i]='.') then write(chr(data_arr[j]));
+    // скобки [ и ]
     if (str_arr[i]='[') then
      begin  
       if data_arr[j]>0 then i_stor:=i;
