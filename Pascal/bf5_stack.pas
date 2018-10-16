@@ -1,3 +1,5 @@
+ Program bf5_stack;
+ 
  LABEL prev,next;
 var
  a : array[1..10] of integer;
