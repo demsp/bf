@@ -1,117 +1,116 @@
 .model small
 jumps
 .data
- str_arr DB 256h DUP('$')	       ;  256 symbols
-  data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   ;  data array
- ; data_arr DB 2,5,12,0,11,6,23,0,0,0,'$' ;
- i DB 0,'$'                            ; index of string element 
- j DB 0,'$'                            ; index of data element
+ str_arr DB 256h DUP('$')	       
+  data_arr DB 0,0,0,0,0,0,0,0,0,0,'$'   
+ ; data_arr DB 2,5,12,0,11,6,23,0,0,0,'$' 
+ i DB 0,'$'                           
+ j DB 0,'$'                           
  i_stor DB 0,'$'
 
 .code
 ORG    100h
 start:
 
-  mov AX, @data          ; set DS                                       
+  mov AX, @data                                              
   mov DS,AX
   ;;;
-  mov ah, 3fh          ; input function of 21h
-  mov cx, 100h	        ; 256 symbols
+  mov ah, 3fh          
+  mov cx, 100h	       
   mov dx,OFFSET str_arr
   int 21h
   ;;;             
-  mov DL, str_arr      ; load 1st command to DL 
+  mov DL, str_arr      
 prev:
- cmp DL, 24h           ; symbol '$'
+ cmp DL, 24h          
  je  exit_loop
                   
- cmp DL, 2Bh         ; if cell contains +                        
- jne next            ; if no, go to  next   
- mov BL, j           ; load data index to BL              
- inc data_arr[BX]    ; if yes, inc cell to 1  
+ cmp DL, 2Bh                                
+ jne next             
+ mov BL, j                        
+ inc data_arr[BX]     
 next: 
- cmp DL, 2Dh         ; if cell contains -                       
- jne next1           ; if no, go to next1  
+ cmp DL, 2Dh                                
+ jne next1             
  mov BL, j 
- dec data_arr[BX]    ; dec cell to 1 
+ dec data_arr[BX]     
 next1: 
- cmp DL, 3Eh         ; if cell contains >
- jne next2           ; if no, go to next2  
- inc j               ; if yes, go to next element of data_arr
+ cmp DL, 3Eh         
+ jne next2            
+ inc j               
 next2: 
- cmp DL, 3Ch         ; if cell contains <
- jne next3           ; if no, go to  next3  
- dec j               ; if yes, go to previous element of data_arr
+ cmp DL, 3Ch         
+ jne next3            
+ dec j               
 next3: 
- cmp DL, 2Eh         ; if cell contains .
- jne next4           ; if no, go to next4  
- mov AH,2            ; if yes, output cell
+ cmp DL, 2Eh         
+ jne next4           
+ mov AH,2            
  mov BL, j
  mov DL, data_arr[BX]
  int 21h
 next4:
- cmp DL, 5Bh         ; if cell contains [
- jne next5           ; if no, go to next5
+ cmp DL, 5Bh         
+ jne next5           
  ;mov BL, j
  ;mov DL, data_arr[BX]
- ;cmp DL, 00          ; if yes, check current data_arr element by zero  
- ;jz next5            ; if zero, jump further
- mov DL, i           ; otherwise  
- mov i_stor, Dl      ; load i to i_stor
+ ;cmp DL, 00            
+ ;jz next5            
+ mov DL, i            
+ mov i_stor, Dl      
 next5:
- cmp DL, 5Dh         ; if cell contains ]
- jne next6           ; if no, go to next6
+ cmp DL, 5Dh         
+ jne next6           
  mov BL, j
  mov DL, data_arr[BX]
- cmp DL, 00          ; if yes, check current data_arr element by zero  
- jz next6            ;  if zero, jump further
- mov DL, i_stor      ; otherwise 
- mov i, DL           ; load i to i_stor 
+ cmp DL, 00            
+ jz next6            
+ mov DL, i_stor       
+ mov i, DL            
 next6:
- inc i               ; increment index of str_arr
+ inc i               
  mov BL, i
- mov DL, str_arr[BX] ; go to next bf-command  
-; loop prev          ; jump to prev:
+ mov DL, str_arr[BX] 
+; loop prev          
  jmp prev
  exit_loop: 
  ;;;;;;;;;;;;;;;;
- MOV    AH,2         ; new line
- MOV    DL,0Ah       ; mew line
- INT    21h          ; new line
+ MOV    AH,2         ; новая строка
+ MOV    DL,0Ah       ; новая строка
+ INT    21h          ; новая строка
 
 ; output data_arr    
-mov CX, 0Ah          ; 10 count of cycles
-sub AL,AL            ; zeroize AL
-mov i, AL            ; load zero to i
-sub BX,BX
-;problem is here
+mov CX, 0Ah          ; 10 тактов
+sub AL,AL            ; обнуляем AL
+mov i, AL            ; обнуляем счётчик
+sub BX,BX            ; обнуляем BX
 _prev:
 ; incorrect 1st element
- sub AH, AH             ; zeroize AH
- mov AL, data_arr[BX]   ; dividend
+ sub AH, AH             ; обнуляем AH
+ mov AL, data_arr[BX]   ; делимое
  ;mov AL, data_arr+1 
- mov BL, 10             ; divisor
- div BL                 ; quotient  AL=tens and AH=units 
+ mov BL, 10             ; делитель
+ div BL                 ; частное  AL=десятки и AH=единицы
  mov BX,AX
  add BX,3030h
- mov AH,2            ; output func of 21h 
- mov DL,BL           ; output tens  
+ mov AH,2            ; функция вывода 2 прерывания 21h 
+ mov DL,BL           ; выводим десятки  
  int 21h 
- mov DL, BH          ; output units
+ mov DL, BH          ; выводим единицы
  int 21h
-               ; output empty symbol
+               ; выводим пробел (пустой символ)
 sub DL, DL          
 int 21h 
 ;;;
 sub BX,BX
-inc i                ; increment counter of index          
+inc i                ; увеличиваем индекс массива
 mov BL, i
 loop _prev
 ;;;;;;;;;;
- MOV    AH,2       ; new line
- MOV    DL,0Ah     ; new line
- INT    21h        ; new line 
+ MOV    AH,2       ; новая строка
+ MOV    DL,0Ah     ; новая строка
+ INT    21h        ; новая строка 
   
- mov AX, 4c00h     ; terminate programm  
+ mov AX, 4c00h     ; завершение программы
  int 21h 
 end start
