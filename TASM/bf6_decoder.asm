@@ -1,4 +1,4 @@
-.model small
+.model tiny
 jumps
 .data
  str_arr DB 256h DUP('$')	       
