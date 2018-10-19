@@ -1,4 +1,4 @@
- Program bf5_stack;
+ Program bf4_stack;
  
  LABEL prev,next;
 var
