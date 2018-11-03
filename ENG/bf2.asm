@@ -1,7 +1,7 @@
 text segment                      ; bf2.asm 
 assume cs:text, ds:data, ss:stk
 begin: 
-mov AX,data        ; set data segment                                       
+mov AX,data        ; set the data segment                                       
   mov DS,AX             
   mov DL, command_mem  
   mov CX, 0Ah        
@@ -36,7 +36,7 @@ next3:
  mov DL, command_mem [BX]   
  loop prev  
          
-  mov AX, 4c00h        ; terminate program
+  mov AX, 4c00h        ; terminate the program
   int 21h 
 text ends
 
