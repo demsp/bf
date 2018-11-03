@@ -7,55 +7,55 @@ mov AX,data        ; set the data segment
   mov CX, 50h        
   
 prev:                    
- cmp DL, '+'         ; ячейка содержит +
- jne next            ; нет, переходим на метку next  
- mov BL, j           ; загружаем в BL индекс данных
- inc data_mem[BX]    ; да, увеличиваем  значение в ячейке на 1
+ cmp DL, '+'         
+ jne next              
+ mov BL, j           
+ inc data_mem[BX]    
 next: 
- cmp DL, '-'         ; ячейка содержит -
- jne next1           ; нет, переходим на метку next1  
+ cmp DL, '-'         
+ jne next1             
  mov BL, j 
- dec data_mem[BX]    ;BX, но не Bl 
+ dec data_mem[BX]    
 next1: 
- cmp DL, '>'         ; ячейка содержит >
- jne next2           ; нет, переходим на метку next2  
- inc j               ; да, переходим на сдедующий элемент массива data_arr
+ cmp DL, '>'         
+ jne next2            
+ inc j               
 next2: 
- cmp DL, '<'         ; ячейка содержит <
- jne next3           ; нет, переходим на метку next3  
- dec j               ; да, переходим на предыдущий элемент массива data_arr
+ cmp DL, '<'         
+ jne next3            
+ dec j               
 next3: 
- cmp DL, '.'         ; ячейка содержит .
- jne next4           ; нет, переходим на метку next4  
- mov AH,2            ; да, выводим содержимое ячейки
+ cmp DL, '.'         
+ jne next4             
+ mov AH,2            
  mov BL, j
  mov DL, data_mem[BX]
  int 21h
 next4:
- cmp DL, '['         ; ячейка содержит [
- jne next5           ; нет, переходим на метку next5
+ cmp DL, '['          ; the cell contains [      
+ jne next5            ; no, go to the label next5:      
  mov BL, j
  mov DL, data_mem[BX]
- cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
- jz next5            ; если ноль, прыгаем дальше
- mov DL, i           ; иначе загружаем 
- mov i_stor, DL      ; в i_stor значение переменной i 
+ cmp DL, 00h          ; yes, check the current data_mem element for zero            
+ jz next5             ; if zero, jump further
+ mov DL, i            ; otherwise load i to i_stor
+ mov i_stor, DL       
 next5:
- cmp DL, ']'         ; ячейка содержит ]
- jne next6           ; нет, переходим на метку next6
+ cmp DL, ']'         
+ jne next6           
  mov BL, j
  mov DL, data_mem[BX]
- cmp DL, 00          ; да, проверяем текущий элемент data_arr на ноль  
- jz next6            ; если ноль, прыгаем дальше
- mov DL, i_stor      ; иначе загружаем 
- mov i, DL           ; в i_stor значение переменной i 
+ cmp DL, 00            
+ jz next6            
+ mov DL, i_stor      
+ mov i, DL           
 next6:
- inc i               ; переходим к следующей команде
+ inc i               
  mov BL, i
  mov DL, command_mem[BX]   
- loop prev          ; прыгаем на метку prev:  
+ loop prev            
          
-  mov AX, 4c00h        ; terminate program
+  mov AX, 4c00h        
   int 21h 
 text ends
 
