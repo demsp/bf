@@ -5,8 +5,8 @@ begin:
   mov AX,data                                             
   mov DS,AX
   ;;;
-  mov ah, 3fh        
-  mov cx, 100h	     
+  mov ah, 3fh                 ; input function
+  mov cx, 100h	              ; the number of bytes you want to read from the input
   mov dx,OFFSET command_mem
   int 21h
   ;;;             
