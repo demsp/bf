@@ -6,17 +6,17 @@ begin:
   mov DL, command_mem      ;  load the 1st command in the DL
   mov CX, 0Ah          ; 10 stages
 prev:                    
- cmp DL, 2Bh           ; the cell contains <b>+</b>
- jne next              ; no, go to the label <i>next</i>  
+ cmp DL, '+'           ; the cell contains +
+ jne next              ; no, go to the label next:  
  mov BL, 00h           ; load into BL the index 
- inc data_mem[BX]      ; yes, we increase the value in the cell by 1 (<i>inc</i> means increment)
+ inc data_mem[BX]      ; yes, we increase the value in the cell by 1 (inc means increment)
  next:
  inc i                 ; go to the next character in the array of commands
  mov BL, i
  mov DL, command_mem [BX]   
  loop prev 
          
-  mov AX, 4c00h        ; terminate program
+  mov AX, 4c00h        ; terminate the program
   int 21h 
 text ends
 
