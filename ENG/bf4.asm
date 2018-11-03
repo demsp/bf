@@ -1,4 +1,4 @@
-jumps                                ; bf4.asm
+JUMPS                                ; bf4.asm
 text segment                    
 assume cs:text,ds:data, ss: stk
 begin:  
